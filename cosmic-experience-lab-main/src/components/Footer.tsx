@@ -26,8 +26,8 @@ const Footer = () => (
           </p>
           <div className="flex items-center gap-3">
             {[
-              { icon: Instagram, href: "https://instagram.com" },
-              { icon: Linkedin, href: "https://linkedin.com" },
+              { icon: Instagram, href: "https://www.instagram.com/internetify.io?igsh=Znhtb3ZqcWU3bjNt" },
+              { icon: Linkedin, href: "https://www.linkedin.com/company/internetify-io/" },
             ].map(({ icon: Icon, href }) => (
               <a
                 key={href}

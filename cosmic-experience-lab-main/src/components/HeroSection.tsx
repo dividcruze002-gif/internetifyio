@@ -50,16 +50,8 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 1 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <a href="#contact" className="glow-button text-lg font-display">
+          <a href="#contact" className="glow-button text-lg font-display rounded-full w-32 h-32 flex items-center justify-center mx-auto">
             Get Started
-          </a>
-          <a
-            href="https://wa.me/919940982795"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass-card px-8 py-3 text-lg font-display font-semibold text-foreground hover:bg-card/60 transition-all duration-300 text-center"
-          >
-            Chat on WhatsApp
           </a>
         </motion.div>
       </div>
