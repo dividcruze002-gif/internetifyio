@@ -15,11 +15,17 @@ const ContactSection = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
-    const text = encodeURIComponent(
-      `Hi, I'm ${name.trim()}.\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service}\nMessage: ${message.trim()}`
+    const to = "internetifyio@gmail.com";
+    const subject = encodeURIComponent(`New inquiry from ${name.trim()}`);
+    const body = encodeURIComponent(
+      `Name: ${name.trim()}\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service || "Not specified"}\n\nMessage:\n${message.trim()}`
     );
-    window.open(`https://wa.me/919940982795?text=${text}`, "_blank");
-    toast.success("Redirecting to WhatsApp...");
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+    const win = window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    if (!win) {
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    }
+    toast.success("Opening email to send your message...");
   };
 
   const inputClass =
