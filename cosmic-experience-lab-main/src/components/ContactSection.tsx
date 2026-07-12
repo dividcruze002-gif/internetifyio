@@ -15,11 +15,12 @@ const ContactSection = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
-    const text = encodeURIComponent(
-      `Hi, I'm ${name.trim()}.\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service}\nMessage: ${message.trim()}`
+    const subject = encodeURIComponent(`New inquiry from ${name.trim()}`);
+    const body = encodeURIComponent(
+      `Name: ${name.trim()}\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service || "Not specified"}\n\nMessage:\n${message.trim()}`
     );
-    window.open(`https://wa.me/918667787621?text=${text}`, "_blank");
-    toast.success("Redirecting to WhatsApp...");
+    window.location.href = `mailto:internetifyio@gmail.com?subject=${subject}&body=${body}`;
+    toast.success("Opening your email app to send the message...");
   };
 
   const inputClass =
