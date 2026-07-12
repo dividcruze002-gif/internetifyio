@@ -15,12 +15,17 @@ const ContactSection = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
+    const to = "internetifyio@gmail.com";
     const subject = encodeURIComponent(`New inquiry from ${name.trim()}`);
     const body = encodeURIComponent(
       `Name: ${name.trim()}\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service || "Not specified"}\n\nMessage:\n${message.trim()}`
     );
-    window.location.href = `mailto:internetifyio@gmail.com?subject=${subject}&body=${body}`;
-    toast.success("Opening your email app to send the message...");
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+    const win = window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    if (!win) {
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    }
+    toast.success("Opening email to send your message...");
   };
 
   const inputClass =
