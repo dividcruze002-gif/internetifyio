@@ -1,10 +1,44 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const handleNavigation = (targetId: string) => {
+    setMobileMenuOpen(false);
+    if (location.pathname === "/") {
+      const element = document.getElementById(targetId);
+      if (element) {
+        const offset = 80; // Account for fixed navbar height
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    } else {
+      navigate("/", { state: { scrollToId: targetId } });
+    }
+  };
+  
+  const navigateToHome = () => {
+    setMobileMenuOpen(false);
+    if (location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    } else {
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -12,11 +46,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleClick = (href: string) => {
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
-    setMobileMenuOpen(false);
-  };
 
   return (
     <motion.nav
@@ -31,25 +60,25 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         <button
-          onClick={() => handleClick("#home")}
+          onClick={navigateToHome}
           className="font-display text-lg sm:text-xl font-bold tracking-tight"
         >
-          <span className="text-gradient">internetify</span>
+          <span className="text-gradient">internetify.io</span>
         </button>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-1">
           <button
-            onClick={() => handleClick("#why-us")}
+            onClick={() => handleNavigation("why-us")}
             className="px-4 py-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
           >
             Why Us
           </button>
           <button
-            onClick={() => handleClick("#contact")}
+            onClick={() => handleNavigation("contact")}
             className="px-4 py-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
           >
-            Contact
+            Get In Touch
           </button>
         </div>
 
@@ -71,20 +100,20 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50"
+            className="absolute top-16 left-0 right-0 w-full md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 overflow-hidden"
           >
             <div className="px-4 py-4 space-y-2">
               <button
-                onClick={() => handleClick("#why-us")}
+                onClick={() => handleNavigation("why-us")}
                 className="w-full text-left px-4 py-3 text-sm font-body text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors rounded-lg"
               >
                 Why Us
               </button>
               <button
-                onClick={() => handleClick("#contact")}
+                onClick={() => handleNavigation("contact")}
                 className="w-full text-left px-4 py-3 text-sm font-body text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors rounded-lg"
               >
-                Contact
+                Get In Touch
               </button>
             </div>
           </motion.div>
