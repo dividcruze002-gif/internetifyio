@@ -79,18 +79,13 @@ const Footer = () => (
           <h4 className="font-display text-sm font-semibold text-foreground tracking-wide uppercase mb-4">Get In Touch</h4>
           <ul className="space-y-3">
             <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
-<<<<<<< HEAD
-              <Phone className="w-4 h-4 text-primary" />
-              +91 8667787621
-=======
               <a 
-                href="tel:+919940982795" 
+                href="tel:+918667787621" 
                 className="flex items-center gap-2.5 hover:text-primary transition-colors"
               >
                 <Phone className="w-4 h-4 text-primary" />
-                +91 9940982795
+                +91 8667787621
               </a>
->>>>>>> 1b0098b (fix: mobile menu responsiveness and smooth scrolling)
             </li>
             <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
               <a 
